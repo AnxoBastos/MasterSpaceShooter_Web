@@ -8,6 +8,7 @@ use CodeIgniter\Filters\DebugToolbar;
 use CodeIgniter\Filters\Honeypot;
 use CodeIgniter\Filters\InvalidChars;
 use CodeIgniter\Filters\SecureHeaders;
+use App\Filters\JWTAuthenticationFilter;
 
 class Filters extends BaseConfig
 {
@@ -21,7 +22,7 @@ class Filters extends BaseConfig
         'honeypot'      => Honeypot::class,
         'invalidchars'  => InvalidChars::class,
         'secureheaders' => SecureHeaders::class,
-        'auth'          => \App\Filters\JWTAuthenticationFilter::class
+        'auth'          => JWTAuthenticationFilter::class
     ];
 
     /**
@@ -61,6 +62,7 @@ class Filters extends BaseConfig
      * Example:
      * 'isLoggedIn' => ['before' => ['account/*', 'profiles/*']]
      */
+
     public array $filters = [
         'auth' => [
             'before'=>  [
@@ -69,4 +71,5 @@ class Filters extends BaseConfig
             ]
          ]
     ];
+
 }
