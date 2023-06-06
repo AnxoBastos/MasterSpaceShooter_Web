@@ -15,6 +15,9 @@ class UserModel extends Model
     protected $beforeInsert = ['beforeInsert'];
     protected $beforeUpdate = ['beforeUpdate'];
 
+    /* API
+    ****************************************************/
+
     protected function beforeInsert(array $data): array
     {
         return $this->getUpdatedDataWithHashedPassword($data);
@@ -35,6 +38,9 @@ class UserModel extends Model
         return $data;
     }
 
+    /* WEB & API
+    ****************************************************/
+
     public function findUserByEmailAddress(string $emailAddress) {
         $user = $this->asArray()->where(['email' => $emailAddress])->first();
 
@@ -43,4 +49,29 @@ class UserModel extends Model
         }
         return $user;
     }
+
+    /* WEB
+    ****************************************************/
+
+    public function findUserById(int $id) {
+        $user = $this->asArray()->where(['id' => $id])->first();
+
+        if (!$user) {
+            throw new Exception('User does not exist for specified id');
+        }
+        return $user;
+    }
+
+    public function validateUserWeb(string $email, string $password): ?array {
+        $model = new UserModel();
+        $user = $model->findUserByEmailAddress($email);
+        if( password_verify($password, $user['password']) ){
+            unset($user['password']);
+            return $user;
+        }
+        else{
+            return null;
+        }
+    }
+    
 }

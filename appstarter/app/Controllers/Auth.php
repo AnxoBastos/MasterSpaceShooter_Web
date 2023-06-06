@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Controllers;
 
 use App\Controllers\BaseController;
@@ -8,14 +10,44 @@ use CodeIgniter\HTTP\ResponseInterface;
 
 class Auth extends BaseController
 {
-    public function index(){
-        $userModel = new UserModel();
-        $data = $userModel->findAll();
-        var_dump($data);
+
+    /* WEB
+    ****************************************************/
+    
+    public function accessAccountWeb(){
+        session_destroy();
+        return view('login.view.php');
     }
 
-    public function register()
-    {
+    public function loginWeb(){
+        $input = filter_var_array($_POST, FILTER_SANITIZE_SPECIAL_CHARS);
+        $model = new UserModel();
+        $user = $model->validateUserWeb($input['email'], $input['password']);
+        if( !is_null($user) ){
+            $_SESSION['user'] = $user;
+            return redirect()->to('/');
+        }
+    }
+
+    public function logoutWeb(){
+        session_destroy();
+        return redirect()->to('/');
+    }
+
+    public function registerWeb(){
+        $input = filter_var_array($_POST, FILTER_SANITIZE_SPECIAL_CHARS);
+        $model = new UserModel();
+        $user = $model->validateUserWeb($input['email'], $input['password']);
+        if( !is_null($user) ){
+            $_SESSION['user'] = $user;
+            return redirect()->to('/');
+        }
+    }
+
+    /* API
+    ****************************************************/
+
+    public function register(){
         $rules = [
             'username' => 'required|is_unique[user.username]',
             'email' => 'required|valid_email|is_unique[user.email]',
@@ -34,7 +66,7 @@ class Auth extends BaseController
         return $this->getJWTForUser($input['email'], ResponseInterface::HTTP_CREATED);
     }
 
-    public function login()
+    public function login( )
     {
         $rules = [
             'email' => 'required|min_length[6]|max_length[50]|valid_email',
@@ -46,18 +78,17 @@ class Auth extends BaseController
                 'validateUser' => 'Invalid login credentials provided'
             ]
         ];
-
+        
         $input = $this->getRequestInput($this->request);
-
         if (!$this->validateRequest($input, $rules, $errors)) {
             return $this->getResponse($this->validator->getErrors(), ResponseInterface::HTTP_BAD_REQUEST);
         }
-
-        return $this->getJWTForUser($input['email']);
+        else{
+            return $this->getJWTForUser($input['email']);
+        }
     }
 
-    private function getJWTForUser(string $email, int $responseCode = ResponseInterface::HTTP_OK)
-    {
+    private function getJWTForUser(string $email, int $responseCode = ResponseInterface::HTTP_OK){
         try {
             $model = new UserModel();
             $user = $model->findUserByEmailAddress($email);

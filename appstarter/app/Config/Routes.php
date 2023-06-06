@@ -4,6 +4,7 @@ namespace Config;
 
 // Create a new instance of our RouteCollection class.
 $routes = Services::routes();
+session_start();
 
 /*
  * --------------------------------------------------------------------
@@ -29,10 +30,21 @@ $routes->set404Override();
 
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
-$routes->get('score', 'Score::index');
-$routes->get('auth', 'Auth::index');
+$routes->get('/', 'Score::indexWeb');
+$routes->get('user', 'Score::userAccountWeb');
+
+$routes->get('access', 'Auth::accessAccountWeb');
+$routes->post('login', 'Auth::loginWeb');
+$routes->get('logout', 'Auth::logoutWeb');
+$routes->post('register', 'Auth::registerWeb');
+
+//$routes->get('score', 'Score::showTop');
+
+//$routes->get('score/top', 'Score::top');
+//$routes->get('score/(:num)', 'Score::show/$1');
+//$routes->get('score/top/(:num)', 'Score::showTop/$1');
+
 $routes->post('auth/login', 'Auth::login');
-$routes->post('auth/register', 'Auth::register');
 /*
  * --------------------------------------------------------------------
  * Additional Routing
