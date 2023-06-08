@@ -88,6 +88,8 @@ footer{
 .footer-menu div {
     display: flex;
     flex-direction: row;
+    align-items: center;
+    justify-content: center;
 }
 
 .header-menu li, .footer-menu li {
@@ -144,6 +146,10 @@ input[type=checkbox] {
     transform-origin: bottom left;
 }
 
+.footer-container .footer-logo .logo-img{
+    width: 60%;
+}
+
 @media (max-width: 1280px) {
 
     @-webkit-keyframes fadeIn {
@@ -182,11 +188,11 @@ input[type=checkbox] {
         margin-top: 1em;
     }
 
-    input[type=checkbox]:checked~.menu {
+    input[type=checkbox]:checked~.header-menu {
         display: block;
         margin-top: 1em;
         -webkit-animation: fadeIn 1s;
-        animation: fadeIn 1.5s;
+        animation: fadeIn 1s;
     }
 
     .hamburger {
@@ -208,8 +214,10 @@ input[type=checkbox] {
 /* MAIN
 **********************************/
 .main {
+    display: flex;
+    flex-direction: column;
     background-color: white;
-    margin: 0 7em 1em 7em;
+    margin: 0 7em 3em 7em;
     font-family: 'Electrolize', sans-serif;
 }
 
@@ -246,13 +254,48 @@ input[type=checkbox] {
     display: block
 }
 
+@media (max-width: 1280px) {
+    .main{
+        gap: 4em;
+        margin: 0 2em 3em 2em;
+    }
+
+    .main-container{
+        display: flex;
+        align-items: center;
+        flex-direction: column-reverse;
+        gap: 2em;
+    }
+
+    #game, #leaderboard{
+        flex-direction: column;
+    }
+
+    .main-container div{
+        width: 100%;
+    }
+
+    .main-container div p{
+        font-size: 3vw;
+        margin: 0 2em 0 2em;
+    }
+
+}
+
+@media (max-width: 720px) {
+    .main-container div p{
+        font-size: 1.3em;
+        margin: 0 1em 0 1em;
+    }
+}
+
 
 /* COMMON TABLE
 **********************************/
 
 .leaderboard-table{
     border-collapse: collapse;
-    font-size: 1vw;
+    font-size: 1.2vw;
     box-shadow: 0 0 20px #682ABF;
     border: 2px solid #F26B1D;
     text-align: left;
@@ -296,7 +339,7 @@ input[type=checkbox] {
 @media (max-width: 1280px) {
 
     .leaderboard-table{
-        font-size: 1.8vw;
+        font-size: 2.2vw;
     }
 
     .leaderboard-table caption{
@@ -461,28 +504,17 @@ input[type=checkbox] {
 
 .access-container{
     display: flex;
-    gap: 4em;
+    align-items: center;
+    justify-content: space-evenly;
+    margin-top: 11em;
+    gap: 6em;
 }
 
 .access-container form{
     border-collapse: collapse;
     background-color: #fff;
-    width: 25em;
-    height: 25em;
-}
-
-.login{
-    position: fixed;
-    left: 40%;
-    top: 50%;
-    transform: translate(-70%, -50%);
-}
-
-.register{
-    position: fixed;
-    left: 60%;
-    top: 50%;
-    transform: translate(-20%, -50%);
+    width: 30em;
+    height: 30em;
 }
 
 .access-container .inputs{
@@ -521,6 +553,7 @@ input[type=checkbox] {
     width: 80%;
     padding: 0.8rem 0.75rem;
     outline: none;
+    font-size: 1.5vw;
 }
 
 .access-container input[type=submit]{
@@ -567,6 +600,29 @@ input[type=checkbox] {
     color: #F26B1D;
 }
 
-@media (max-width: 1280px) {
+.error-container{
+    width: 100% !important;
+    text-align: center;
+    color: red;
+}
 
+@media (max-width: 1280px) {
+    .access-container{
+        flex-direction: column;
+    }
+
+    .login-tittle p, .register-tittle p{
+        font-family: 'Press Start 2P', cursive;
+        font-size: 2em;
+    }
+
+    .access-container input{
+        font-size: 1.8em;
+    }
+}
+
+@media (max-width: 500px) {
+    .access-container form{
+        width: 98%;
+    }
 }

@@ -31,20 +31,22 @@ $routes->set404Override();
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
 $routes->get('/', 'Score::indexWeb');
+
 $routes->get('user', 'Score::userAccountWeb');
+$routes->post('username', 'Auth::updateUsernameWeb');
+$routes->post('password', 'Auth::updatePasswordWeb');
+$routes->post('delete', 'Auth::deleteUserWeb');
 
 $routes->get('access', 'Auth::accessAccountWeb');
-$routes->post('login', 'Auth::loginWeb');
 $routes->get('logout', 'Auth::logoutWeb');
+$routes->post('login', 'Auth::loginWeb');
 $routes->post('register', 'Auth::registerWeb');
 
-//$routes->get('score', 'Score::showTop');
+$routes->get('download', 'Auth::download');
 
-//$routes->get('score/top', 'Score::top');
-//$routes->get('score/(:num)', 'Score::show/$1');
-//$routes->get('score/top/(:num)', 'Score::showTop/$1');
-
+$routes->get('top', 'Score::top');
 $routes->post('auth/login', 'Auth::login');
+$routes->post('score/store', 'Score::store');
 /*
  * --------------------------------------------------------------------
  * Additional Routing

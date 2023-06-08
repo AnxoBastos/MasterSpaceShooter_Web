@@ -17,21 +17,31 @@
                     <p>LOGIN</p>
                 </div>
                 <div class="inputs">
-                    <input type="text" name="email" placeholder="Correo electronico"></td>
-                    <input type="password" name="password" autocomplete="current-password" placeholder="Contraseña" minlength="8"></td>
-                    <input type="submit" name="submitLogin" value="Iniciar sesión"></td>
+                    <input type="text" name="email" placeholder="Correo electronico" required>
+                    <input type="password" name="password" autocomplete="current-password" placeholder="Contraseña" minlength="8" required>
+                    <input type="submit" name="submitLogin" value="Iniciar sesión" required>
                 </div>
+                <?php if( isset($loginError) ){ ?>
+                    <div class="error-container">
+                        <span><?php echo $loginError ?></span>
+                    </div>
+                <?php } ?>
             </form>
-            <form action="post" class="register">
+            <form action="/register" method="post" class="register">
                 <div class="register-tittle">
                     <p>REGISTER</p>
                 </div>
                 <div class="inputs">
-                    <input type="text" name="username" placeholder="Usuario">
-                    <input type="text" name="email" placeholder="Correo electronico">
-                    <input type="password" name="newPassword" autocomplete="current-password" placeholder="Contraseña" minlength="8">
+                    <input type="text" name="newUsername" placeholder="Usuario" required>
+                    <input type="email" name="newEmail" placeholder="Correo electronico" required>
+                    <input type="password" name="newPassword" autocomplete="current-password" placeholder="Contraseña" minlength="8" required>
                     <input type="submit" name="submitRegister" value="Registrarse">
                 </div>
+                <?php if( isset($registerError) ){ ?>
+                    <div class="error-container">
+                        <span><?php echo $registerError ?></span>
+                    </div>
+                <?php } ?>
            </form>
         </div>
     </main>

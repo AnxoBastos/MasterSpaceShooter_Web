@@ -41,11 +41,12 @@ class UserModel extends Model
     /* WEB & API
     ****************************************************/
 
-    public function findUserByEmailAddress(string $emailAddress) {
-        $user = $this->asArray()->where(['email' => $emailAddress])->first();
+    public function findUserByEmailAddress(string $email) {
+        $user = $this->asArray()->where(['email' => $email])->first();
 
         if (!$user) {
-            throw new Exception('User does not exist for specified email address');
+            return false;
+            //throw new Exception('User does not exist for specified email address');
         }
         return $user;
     }
@@ -55,17 +56,25 @@ class UserModel extends Model
 
     public function findUserById(int $id) {
         $user = $this->asArray()->where(['id' => $id])->first();
-
         if (!$user) {
-            throw new Exception('User does not exist for specified id');
+            return false;
+            //throw new Exception('User does not exist for specified id');
+        }
+        return $user;
+    }
+
+    public function findUserByUsername(string $username) {
+        $user = $this->asArray()->where(['username' => $username])->first();
+        if (!$user) {
+            return false;
+            //throw new Exception('User does not exist for specified id');
         }
         return $user;
     }
 
     public function validateUserWeb(string $email, string $password): ?array {
-        $model = new UserModel();
-        $user = $model->findUserByEmailAddress($email);
-        if( password_verify($password, $user['password']) ){
+        $user = $this->findUserByEmailAddress($email);
+        if( !empty($user) && password_verify($password, $user['password']) ){
             unset($user['password']);
             return $user;
         }

@@ -9,12 +9,13 @@ use CodeIgniter\Model;
 class ScoreModel extends Model{
     
     protected $table = 'score';
-    protected $allowedFields = ['score', 'date'];
+    protected $allowedFields = ['id', 'score', 'date'];
+    protected $useAutoIncrement = false;
 
     public function findScoresById($id, int $limit = 0){
         $user = $this->asArray()->where(['id' => $id])->findAll($limit);
         if(!$user){
-            throw new Exception( 'Could not find user for specific ID' );
+            return false;
         }
         return $user;
     }
@@ -22,7 +23,7 @@ class ScoreModel extends Model{
     public function getTopScores(int $limit = 0){
         $scores = $this->orderBy('score', 'desc')->findAll($limit);
         if(!$scores){
-            throw new Exception( 'Could not find scores' );
+            return false;
         }
         return $scores;
     }

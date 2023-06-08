@@ -8,8 +8,13 @@ class UserRules
 {
     public function validateUser(string $str, string $fields, array $data): bool
     {
-        $model = new UserModel();
-        $user = $model->findUserByEmailAddress($data['email']);
-        return password_verify($data['password'], $user['password']);
+        try{
+            $model = new UserModel();
+            $user = $model->findUserByEmailAddress($data['email']);
+            return password_verify($data['password'], $user['password']);
+        } 
+        catch(\Exception $e) {
+            return false;
+        }
     }
 }

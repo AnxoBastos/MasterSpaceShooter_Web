@@ -16,6 +16,7 @@ class Score extends BaseController{
     ****************************************************/
 
     public function indexWeb(){
+        var_dump($_SESSION);
         $data['scores'] = $this->getTopTen();
         return view('templates/header.view.php')
                 .view('index.view.php', $data)
@@ -36,70 +37,20 @@ class Score extends BaseController{
         }
     }
 
-    /* API
-    ****************************************************/
-
-    public function show(){
-        $model = new ScoreModel();
-        return $this->getResponse([
-            'message' => 'Scores retrieved succesfully',
-            'scores' => $model->orderBy('date', 'desc')->findAll()
-        ]);
-    }
-
-    public function showTop(){
-        $model = new ScoreModel();
-        return $this->getResponse([
-            'message' => 'Scores retrieved succesfully',
-            'scores' => $model->orderBy('score', 'desc')->findAll()
-        ]);
-    }
-
-    public function showDate($id){
-        try {
-
-            $model = new ScoreModel();
-            $user = $model->orderBy('date', 'desc')->findUserById($id);
-
-            return $this->getResponse([
-                'message' => 'Score retrieved successfully',
-                'id' => $user
-            ]);
-
-        } catch (Exception $e) {
-            return $this->getResponse([
-                'message' => 'Could not find scores for specified ID'
-            ], ResponseInterface::HTTP_NOT_FOUND);
-        }
-    }
-
-    public function showTop2($id){
-        try {
-
-            $model = new ScoreModel();
-            $user = $model->orderBy('score', 'desc')->findUserById($id);
-
-            return $this->getResponse([
-                'message' => 'Score retrieved successfully',
-                'id' => $user
-            ]);
-
-        } catch (Exception $e) {
-            return $this->getResponse([
-                'message' => 'Could not find scores for specified ID'
-            ], ResponseInterface::HTTP_NOT_FOUND);
-        }
-    }
-
     private function getTopTen(){
         $modelScore = new ScoreModel();
         $modelUser = new UserModel();
         $top = $modelScore->getTopScores(10);
-        foreach($top as $key => $score){
-            $user = $modelUser->findUserById(intval($score['id']));
-            $top[$key]['username'] = $user['username'];
+        if(!empty($top)){
+            foreach($top as $key => $score){
+                $user = $modelUser->findUserById(intval($score['id']));
+                $top[$key]['username'] = $user['username'];
+            }
+            return $top;
         }
-        return $top;
+        else{
+            false;
+        }
     }
 
     private function getUserTop(){
@@ -112,5 +63,45 @@ class Score extends BaseController{
         $modelScore = new ScoreModel();
         $data = $modelScore->orderBy('date', 'desc')->findScoresById($_SESSION['user']['id'], 10);
         return $data;
+    }
+
+    /* API
+    ****************************************************/
+
+    public function store(){
+        $rules = [
+            'id' => 'required',
+            'score' => 'required',
+            'date' => 'required'
+        ];
+
+        $input = $this->getRequestInput($this->request);
+
+        if (!$this->validateRequest($input, $rules)) {
+            return $this->getResponse($this->validator->getErrors(), ResponseInterface::HTTP_BAD_REQUEST);
+        }
+
+        $model = new ScoreModel();
+        $register = $model->insert($input);
+
+        return $this->getResponse([
+            'message' => 'Score added successfully',
+            'code' => $register
+        ]);
+    }
+
+    public function top(){
+        $modelScore = new ScoreModel();
+        $modelUser = new UserModel();
+        $top = $modelScore->getTopScores(10);
+        if(!empty($top))
+        foreach($top as $key => $score){
+            $user = $modelUser->findUserById(intval($score['id']));
+            $top[$key]['username'] = $user['username'];
+        }
+
+        return $this->getResponse([
+            'scores' => $top
+        ]);
     }
 }

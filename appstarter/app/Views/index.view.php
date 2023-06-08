@@ -11,7 +11,7 @@
         <div><p>El juego es totalmente Free-to-Play pero dejaremos un enlace donde podrás <a href="">aportar</a> a una buena causa. Todo el dinero generado se donara a la fundación <a href="https://www.juegaterapia.org/" target="_blank">Juegaterapia</a>, en esta fundación ayudan a los niños enfermos de cancer a tener una estancía mucho mas amena en los hospitales a traves de los videojuegos.</p></div>
         <div class="img-container"><img src="assets/img/MainImg3.jpg" alt=""></div>
     </div>
-    <div id="leaderboard" class="main-container leaderboard">
+    <div class="main-container leaderboard">
         <div class="leaderboard-container">
             <table class="leaderboard-table">
                 <thead>
@@ -22,10 +22,11 @@
                         <th>Date</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody id="leaderboard-tbody">
                     <?php
-                        $counter = 1;
-                        foreach ($scores as $score){ 
+                        if(!empty($scores)){
+                            $counter = 1;
+                            foreach ($scores as $score){ 
                     ?>
                             <tr>
                                 <td><?php echo $counter; ?></td>
@@ -34,7 +35,8 @@
                                 <td><?php echo date('d-m-y', $score['date']); ?></td>
                             </tr>
                     <?php
-                            $counter++;
+                                $counter++;
+                            }
                         }
                     ?>
                 </tbody>
