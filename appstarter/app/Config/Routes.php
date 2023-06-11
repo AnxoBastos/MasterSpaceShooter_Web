@@ -44,8 +44,15 @@ $routes->post('register', 'Auth::registerWeb');
 
 $routes->get('download', 'Auth::download');
 
-$routes->get('top', 'Score::top');
 $routes->post('auth/login', 'Auth::login');
+
+$routes->get('top', 'Score::top');
+
+$routes->get('scores', 'Score::scores');
+$routes->get('scores/date', 'Score::scoresByDate');
+$routes->get('scores/score/(:any)', 'Score::scoresUsername/$1');
+$routes->get('scores/date/(:any)', 'Score::scoresUsernameByDate/$1');
+
 $routes->post('score/store', 'Score::store');
 /*
  * --------------------------------------------------------------------

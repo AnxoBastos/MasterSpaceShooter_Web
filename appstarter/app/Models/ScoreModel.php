@@ -12,19 +12,37 @@ class ScoreModel extends Model{
     protected $allowedFields = ['id', 'score', 'date'];
     protected $useAutoIncrement = false;
 
-    public function findScoresById($id, int $limit = 0){
-        $user = $this->asArray()->where(['id' => $id])->findAll($limit);
-        if(!$user){
-            return false;
+    public function getTopScores(int $limit = 0, int $id = 0){
+        if(empty($id)){
+            $scores = $this->orderBy('score', 'desc')->findAll($limit);
+            if(!$scores){
+                return false;
+            }
+            return $scores;
         }
-        return $user;
+        else{
+            $scores = $this->orderBy('score', 'desc')->where(['id' => $id])->findAll($limit);
+            if(!$scores){
+                return false;
+            }
+            return $scores;
+        }
     }
 
-    public function getTopScores(int $limit = 0){
-        $scores = $this->orderBy('score', 'desc')->findAll($limit);
-        if(!$scores){
-            return false;
+    public function getRecentScores(int $limit = 0, int $id = 0){
+        if(empty($id)){
+            $scores = $this->orderBy('date', 'desc')->findAll($limit);
+            if(!$scores){
+                return false;
+            }
+            return $scores;
         }
-        return $scores;
+        else{
+            $scores = $this->orderBy('date', 'desc')->where(['id' => $id])->findAll($limit);
+            if(!$scores){
+                return false;
+            }
+            return $scores;
+        }
     }
 }
