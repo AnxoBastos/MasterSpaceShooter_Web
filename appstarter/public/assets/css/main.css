@@ -203,12 +203,22 @@ input[type=checkbox] {
         flex-direction: column;
     }
 
+    .footer-container .footer-logo .logo-img{
+        width: 30%;
+    }
+
     .footer-menu div {
         justify-content: center;
         text-align: center;
         flex-wrap: wrap;
     }
 
+}
+
+@media (max-width: 720px) {
+    .footer-container .footer-logo .logo-img{
+        width: 60%;
+    }
 }
     
 /* MAIN
@@ -403,6 +413,11 @@ input[type=checkbox] {
     width: 100%;
 }
 
+.account-mod-container .account-username{
+    text-align: center;
+    font-size: 3vw;
+}
+
 .account-mod-container .mod-inputs{
     display: flex;
     flex-direction: row;
@@ -461,6 +476,11 @@ input[type=checkbox] {
         font-size: 1.2vw;
     }
 
+    .account-mod-container .account-username{
+        font-size: 4em;
+    }
+    
+
 }
 
 @media (max-width: 720px) {
@@ -478,7 +498,7 @@ input[type=checkbox] {
         height: 2.5em;
         font-size: 0.8em;
     }
-    
+
     .account-mod-container input[type=submit],
     .account-mod-container input[type=text],
     .account-mod-container input[type=password]{

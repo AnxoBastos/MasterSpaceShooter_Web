@@ -17,7 +17,7 @@ class App extends BaseConfig
      *
      *    http://example.com/
      */
-    public string $baseURL = 'http://gameweb.localhost:8080/';
+    public string $baseURL = 'http://proxecto.localhost:80/';
 
     /**
      * Allowed Hostnames in the Site URL other than the hostname in the baseURL.

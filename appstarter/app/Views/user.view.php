@@ -59,6 +59,7 @@
             </table>
         </div>
         <div class="account-mod-container">
+            <h2 class="account-username"> <?php echo isset($_SESSION['user']['username']) ? $_SESSION['user']['username'] : '' ?> </h2>
             <form action="/username" method="post" class="username-mod">
                 <div class="tittle">
                     <h2>CAMBIAR NOMBRE DE USUARIO</h2>

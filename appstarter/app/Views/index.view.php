@@ -8,10 +8,10 @@
         <div><p>En este juego te haras con el control de una nave de ultima generación con la que tendras que derrotar a los diferentes tipos de alienigenas que se encuentran en el espacio, la nave cuenta con multiples mejoras como numero de disparos, resistencia del escudo, velocidad, etc. Sacale el mejor partido a tu nave y enseñanos tus habilidades en combate.</p></div>
     </div>
     <div id="help" class="main-container">
-        <div><p>El juego es totalmente Free-to-Play pero dejaremos un enlace donde podrás <a href="">aportar</a> a una buena causa. Todo el dinero generado se donara a la fundación <a href="https://www.juegaterapia.org/" target="_blank">Juegaterapia</a>, en esta fundación ayudan a los niños enfermos de cancer a tener una estancía mucho mas amena en los hospitales a traves de los videojuegos.</p></div>
+        <div><p>El juego es totalmente Free-to-Play pero dejaremos un enlace donde podrás aportar a una buena causa. Todo el dinero generado se donara a la fundación <a href="https://www.juegaterapia.org/" target="_blank">Juegaterapia</a>, en esta fundación ayudan a los niños enfermos de cancer a tener una estancía mucho mas amena en los hospitales a traves de los videojuegos.</p></div>
         <div class="img-container"><img src="assets/img/MainImg3.jpg" alt=""></div>
     </div>
-    <div class="main-container leaderboard">
+    <div id="leaderboard" class="main-container leaderboard">
         <div class="leaderboard-container">
             <table class="leaderboard-table">
                 <thead>

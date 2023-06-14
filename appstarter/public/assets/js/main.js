@@ -1,7 +1,7 @@
 const tbody = document.getElementById('leaderboard-tbody');
 
 function reloadTable(){
-    fetch('http://gameweb.localhost:8080/top')
+    fetch('http://proxecto.localhost:80/top')
         .then(response => response.json())
         .then(response => insertData(response))
         .catch(err => console.log(err));
@@ -21,7 +21,6 @@ function insertData(response){
                         <td>${element['score']}</td>
                         <td>${dateString}</td>
                     <tr>`;
-        console.log(html);
         tbody.insertAdjacentHTML('beforeend', html);
         counter++;
     });

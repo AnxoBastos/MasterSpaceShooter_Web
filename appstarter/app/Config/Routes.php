@@ -45,7 +45,6 @@ $routes->post('register', 'Auth::registerWeb');
 $routes->get('download', 'Auth::download');
 
 $routes->post('auth/login', 'Auth::login');
-
 $routes->get('top', 'Score::top');
 
 $routes->get('scores', 'Score::scores');

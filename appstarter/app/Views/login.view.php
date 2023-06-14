@@ -10,7 +10,7 @@
 </head>
 <body>
     <main class="access-main">
-        <div class="access-logo"><a href="http://gameweb.localhost:8080/">MASTER SPACE SHOOTER</a></div>
+        <div class="access-logo"><a href="/">MASTER SPACE SHOOTER</a></div>
         <div class="access-container">
             <form action="/login" method="post" class="login">
                 <div class="login-tittle">

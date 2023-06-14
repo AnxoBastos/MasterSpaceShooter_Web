@@ -15,7 +15,6 @@ class Auth extends BaseController
     ****************************************************/
     
     public function accessAccountWeb(){
-        session_destroy();
         return view('login.view.php');
     }
 
@@ -121,7 +120,12 @@ class Auth extends BaseController
     }
 
     public function download(){
-        return $this->response->download('assets/downloadables/desktop-1.0.jar', null);
+        if( isset($_SESSION["user"]) ){
+            return $this->response->download('assets/downloadables/MasterSpaceShooter.zip', null);
+        }
+        else{
+            return redirect()->to('/access');
+        }
     }
 
     /* API
